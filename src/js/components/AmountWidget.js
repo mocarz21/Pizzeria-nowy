@@ -1,4 +1,5 @@
 import {select, settings} from '../settings.js';
+
 class AmountWidget{
   constructor(element){
     const thisWidget = this;
@@ -30,7 +31,7 @@ class AmountWidget{
     
     
 
-    if (thisWidget.value !== newValue && !isNaN(newValue) && thisWidget.value <= settings.amountWidget.defaultMax && thisWidget.value >= settings.amountWidget.defaultMin) {
+    if (thisWidget.value !== newValue && !isNaN(newValue) && thisWidget.value <= settings.amountWidget.defaultMax && thisWidget.value >= settings.amountWidget.defaultMin) {    //zapytac o ten zapis !!!!!!!!!!!!!
       thisWidget.value = newValue;
     }
     thisWidget.announce();
