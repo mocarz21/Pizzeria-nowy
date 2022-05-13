@@ -1,62 +1,59 @@
 import {select, settings} from '../settings.js';
+import BaseWidget from './BaseWidget.js';
 
-class AmountWidget{
+class AmountWidget extends BaseWidget{
   constructor(element){
+    super(element,settings.amountWidget.defaultValue);
     const thisWidget = this;
     thisWidget.getElements(element);                        // nie rozumiem za bardzo co tu sie dzieje (rozumiem ze zostaje przekazany argument element zeby był dostępny w metodzie getElements ale po zapisie nie bardzo wiem jak to sie dzieje i do końca po co )
-    thisWidget.setValue(thisWidget.input.value);
+    //thisWidget.setValue(1);
     thisWidget.initActions();
+    console.log('amountWidget',thisWidget);
     
+                      
   } 
-  getElements(element){                               //czemu po tym kroku thisWidget pokazuje konkretny element w console a wczesniej pokazywało pusty obiekt a teraz wskazuje na diva ?
+  getElements(){                               //czemu po tym kroku thisWidget pokazuje konkretny element w console a wczesniej pokazywało pusty obiekt a teraz wskazuje na diva ?
     const thisWidget = this;
     
-    thisWidget.element = element;
-    thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
-    thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
-    thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
-    thisWidget.value = settings.amountWidget.defaultValue;
+    thisWidget.dom.input = thisWidget.dom.wrapper.querySelector(select.widgets.amount.input);
+    thisWidget.dom.linkDecrease = thisWidget.dom.wrapper.querySelector(select.widgets.amount.linkDecrease);
+    thisWidget.dom.linkIncrease = thisWidget.dom.wrapper.querySelector(select.widgets.amount.linkIncrease);
+    
   }
-  announce(){
-    const thisWidget = this;
-    
-    const event = new CustomEvent('update',{bubbles: true});
-    thisWidget.element.dispatchEvent(event);
-  }
-  setValue(value){
-    
-    const thisWidget = this;               
-    //thisWidget.value = settings.amountWidget.defaultValue;
-    const newValue = parseInt(value);
-    
-    
 
-    if (thisWidget.value !== newValue && !isNaN(newValue) && thisWidget.value <= settings.amountWidget.defaultMax && thisWidget.value >= settings.amountWidget.defaultMin) {    //zapytac o ten zapis !!!!!!!!!!!!!
-      thisWidget.value = newValue;
-    }
-    thisWidget.announce();
-    thisWidget.input.value = thisWidget.value;
+
+
+  isValid(value){
+    return !isNaN(value) 
+    && value <= settings.amountWidget.defaultMax 
+    && value >= settings.amountWidget.defaultMin;
+  }
+  renderValue(){
+    const thisWidget = this;
+    thisWidget.dom.input.value = thisWidget.value;
   }
   initActions(){
     const thisWidget = this;
 
-    thisWidget.input.addEventListener('change', function(){
-      thisWidget.setValue(thisWidget.value);
+    thisWidget.dom.input.addEventListener('change', function(){
+      //thisWidget.setValue(thisWidget.value);
+      thisWidget.value = thisWidget.dom.input.value;
     
     });
-    thisWidget.linkDecrease.addEventListener('click', function(event){
+    thisWidget.dom.linkDecrease.addEventListener('click', function(event){
       event.preventDefault();
       thisWidget.setValue(thisWidget.value - 1);
     
     
     });
-    thisWidget.linkIncrease.addEventListener('click', function(event){
+    thisWidget.dom.linkIncrease.addEventListener('click', function(event){
       event.preventDefault();
-      console.log('thisWidget.input.value',thisWidget.input.value);
+      
       thisWidget.setValue(Number(thisWidget.value)  + 1);
     
     });
   }
+  
 
 }
 export default AmountWidget;

@@ -10,7 +10,7 @@ const app = {
     thisApp.pages =document.querySelector(select.containerOf.pages).children;
     thisApp.navLinks =document.querySelectorAll(select.nav.links);
     
-    console.log('idFromHash',idFromHash);
+    
     
     let pageMatchingHash = thisApp.pages[0].id;
     
@@ -21,8 +21,9 @@ const app = {
         pageMatchingHash = page.id;
         break;
       }
-      thisApp.activatePages(pageMatchingHash);
+      
     }
+    thisApp.activatePages(pageMatchingHash);
 
     for(let link of thisApp.navLinks){
       link.addEventListener('click', function(event){
@@ -31,7 +32,7 @@ const app = {
 
         /*get page id from href atribute */
         const id = clickedElement.getAttribute('href').replace('#',''); //zrobiłem wczesniej link zamiast clcickedElemet i działało identycznie Czy to robi jakąś różnice ?
-        console.log('id',id);
+        
         /* run thisApp.activatePage  with that id*/
         thisApp.activatePages(id);
         /* chnge url hash*/
@@ -57,7 +58,6 @@ const app = {
       );
     }
 
-    /*add class 'active' to matching LINK remove from non-matchng*/
   },
   initMenu: function(){
     const thisApp = this;
@@ -90,14 +90,14 @@ const app = {
         return rawResponse.json();
       })
       .then(function(parsedResponse){
-        console.log('parsedResponse', parsedResponse);
+        
 
         
         thisApp.data.products = parsedResponse;
 
         thisApp.initMenu(); 
       });
-    console.log('thisapp.data', JSON.stringify(thisApp.data));
+    
   },
   initBooking: function(){
     const bookingContainer = document.querySelector(select.containerOf.booking);
@@ -119,6 +119,7 @@ const app = {
   },
   
 };
+
 
 
 app.init();

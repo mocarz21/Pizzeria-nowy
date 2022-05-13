@@ -66,7 +66,7 @@ class CartProduct{
     thisCartProduct.dom.remove.addEventListener('click', function(){
     //  event.preventDefault();
       thisCartProduct.remove();
-      console.log('remove' , thisCartProduct.remove());
+      
 
     });
 
@@ -81,7 +81,7 @@ class CartProduct{
     orderObject.name = thisCartProduct.name;
     orderObject.params = thisCartProduct.params;
 
-    console.log('orderObject ',orderObject);
+    
     return orderObject;
   }
 }

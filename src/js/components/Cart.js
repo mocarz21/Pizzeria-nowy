@@ -45,7 +45,7 @@ class Cart{
     });
     thisCart.dom.productList.addEventListener('remove', function(event){
       event.preventDefault();
-      console.log('event.detail.cartProduct', event.detail.cartProduct);
+      
       thisCart.remove(event.detail.cartProduct);
     
     });
@@ -70,7 +70,7 @@ class Cart{
     for(let prod of thisCart.products){  
       payLoad.products.push(prod.getData());
     }
-    console.log('payLoad', payLoad);
+    
     
     const options ={
       method: 'POST',
