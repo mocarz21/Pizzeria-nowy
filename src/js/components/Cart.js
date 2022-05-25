@@ -32,6 +32,7 @@ class Cart{
     thisCart.dom.form = thisCart.dom.wrapper.querySelector(select.cart.form);
     thisCart.dom.phone = thisCart.dom.wrapper.querySelector(select.cart.phone);
     thisCart.dom.address = thisCart.dom.wrapper.querySelector(select.cart.address);
+    console.log('asdasd',thisCart.dom.form)
   }
 
   initActions(){
@@ -68,7 +69,9 @@ class Cart{
     payLoad.totalNumber = thisCart.totalNumber.innerHTML;
     payLoad.deliveryFee = thisCart.deliveryFee.innerHTML;
     for(let prod of thisCart.products){  
-      payLoad.products.push(prod.getData());
+      payLoad.products.push(prod.getData());             // po co jest getData?
+     
+
     }
     
     
@@ -80,6 +83,8 @@ class Cart{
       body: JSON.stringify(payLoad)
     };
     fetch(url, options);
+
+    
 
   }
 
@@ -129,8 +134,7 @@ class Cart{
     thisCart.totalNumber.innerHTML = totalNumber;
     
   }
-  remove(cartProduct){                                                        //do przejrzenia 
-    
+  remove(cartProduct){                                                        
     const thisCart = this;
     //1
     cartProduct.dom.wrapper.remove();

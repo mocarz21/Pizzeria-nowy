@@ -8,7 +8,7 @@ class AmountWidget extends BaseWidget{
     thisWidget.getElements(element);                        // nie rozumiem za bardzo co tu sie dzieje (rozumiem ze zostaje przekazany argument element zeby był dostępny w metodzie getElements ale po zapisie nie bardzo wiem jak to sie dzieje i do końca po co )
     //thisWidget.setValue(1);
     thisWidget.initActions();
-    console.log('amountWidget',thisWidget);
+   
     
                       
   } 

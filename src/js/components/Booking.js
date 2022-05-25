@@ -8,7 +8,11 @@ class Booking{
     const thisBooking = this;
     thisBooking.render(element);
     thisBooking.initWidgets();
-    thisBooking.getData();
+    thisBooking.markedTable();
+    thisBooking.getData(); 
+    thisBooking.initAction();   
+    
+    
     
   }
   getData(){
@@ -97,7 +101,7 @@ class Booking{
 
     for(let hourBlock = startHour; hourBlock < startHour + duration; hourBlock +=0.5){
       
-      if(typeof thisBooking.booked[date][hourBlock] == 'undefined'){
+      if(typeof thisBooking.booked[date][hourBlock] == 'undefined'){ //nie pamietam po co jest typeof
         thisBooking.booked[date][hourBlock] = [];
       }
       thisBooking.booked[date][hourBlock].push(table);
@@ -128,7 +132,7 @@ class Booking{
     for(let table of thisBooking.dom.tables){
       let tableId = table.getAttribute(settings.booking.tableIdAttribute);
       if(!isNaN(tableId)){
-        tableId =parseInt(tableId)
+        tableId =parseInt(tableId);
       }
       if(
         !allAvailable 
@@ -140,8 +144,50 @@ class Booking{
         table.classList.remove(classNames.booking.tableBooked);
       }
     }
+    for(let item of thisBooking.dom.tables){
+      item.classList.remove(classNames.booking.marked);
+    }
   }
+
+
   
+  markedTable(){
+    const thisBooking = this;
+
+    let tableNumber = '';
+
+    document.querySelector('.floor-plan').addEventListener('click', function(event){
+      
+   
+      tableNumber = event.target.attributes[1];
+     
+      event.path[0].classList.toggle(classNames.booking.marked);
+      thisBooking.remove(tableNumber);
+    });
+
+      
+  
+  }
+
+  remove(tN){
+    const thisBooking = this;
+  
+    
+    for(let item of thisBooking.dom.tables){
+      let tableNumber = item.getAttribute('data-table');
+
+      
+      if(tableNumber !== tN.value){
+       
+        item.classList.remove(classNames.booking.marked);
+      }
+      if(item.classList.contains(classNames.booking.tableBooked)){
+        item.classList.remove(classNames.booking.marked);
+      }
+    
+    }
+  
+  }
 
   render(element){
     const thisBooking = this;
@@ -155,7 +201,25 @@ class Booking{
     thisBooking.dom.pickDate =  thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
     thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
+
+
+    thisBooking.dom.inputPeopleAmount = thisBooking.dom.wrapper.querySelector('input[name="people"]');
+    thisBooking.dom.inputkDate =thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.input);
+    thisBooking.dom.inputHour = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.input);
+    thisBooking.dom.inputHoursAmount = thisBooking.dom.wrapper.querySelector('input[name="hours"]');
+    thisBooking.dom.inputPhone = thisBooking.dom.wrapper.querySelector('input[name="phone"]');
+    thisBooking.dom.inputAdress = thisBooking.dom.wrapper.querySelector('input[name="address"]');
+    thisBooking.dom.form = thisBooking.dom.wrapper.querySelector('.booking-form');
+    thisBooking.dom.table = thisBooking.dom.wrapper.querySelector('.marked'); //czemu nie znajduje mi marked gdy w floor-plan znajduje i widac ze jest klasa marked
+    thisBooking.dom.initStarters = document.querySelectorAll('input[name="starter"]');
+    console.log('thisBooking.dom.table',thisBooking.dom.table);
+    
+
   }
+
+
+
+
   initWidgets(){
     const thisBooking = this;
     thisBooking.AmountWidgetPeople = new AmountWidget(thisBooking.dom.peopleAmount);
@@ -167,5 +231,62 @@ class Booking{
       thisBooking.updateDom();
     });
   }
+  
+
+  sendOrder(){
+    const thisBooking = this;
+    const url = settings.db.url + '/' + settings.db.booking; 
+    console.log(url);
+    let reservation = {};
+    
+    reservation.table = thisBooking.dom.table; //powinna byc liczba ; popawic nie działa właściwie (pomysl był taki zeby sciagnac atrybut po klasie .marked)
+    
+    reservation.starters =[];
+
+    for( let starter of thisBooking.dom.initStarters){   //?????? nie rozumiem tego zapisu z cart
+      
+      if(starter.checked ==true){
+        reservation.starters.push(starter.value);
+      }
+      console.log('starter',starter);
+
+    }
+    reservation.date = thisBooking.dom.inputkDate.value;
+    reservation.hour = thisBooking.dom.inputHour.value; 
+    reservation.duration = thisBooking.dom.inputHoursAmount.value; //powinna byc liczba
+    reservation.ppl = thisBooking.dom.inputPeopleAmount.value; //powinna byc liczba
+    reservation.phone = thisBooking.dom.inputPhone.value;
+    reservation.address = thisBooking.dom.inputAdress.value ; 
+
+    console.log( ' spradznie co pobiera ',reservation.table);
+
+    thisBooking.makeBooked(reservation.date, reservation.hour, reservation.duration, reservation.table); //nie działa
+    
+
+    const options ={        //wiem po co niewiem co sie dzieje
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(reservation)
+    };
+    fetch(url, options);
+
+    console.log(' reservation ',  reservation);
+    console.log('thisBooking.dom.table',thisBooking.dom.table);
+    console.log('thisBooking.booked',thisBooking.booked);
+  }
+
+  initAction(){
+    const thisBooking = this;
+    thisBooking.dom.form.addEventListener('submit', function(event){
+      event.preventDefault();
+      thisBooking.sendOrder();
+      
+    });
+
+  
+  }
+
 }
 export default Booking;
