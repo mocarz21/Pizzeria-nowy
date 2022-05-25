@@ -92,12 +92,13 @@ class Booking{
   }
   makeBooked(date, hour, duration, table ){
     const thisBooking= this;
-
+   
     if( typeof thisBooking.booked[date] == 'undefined'){
       thisBooking.booked[date] = {};
     }
 
     const startHour = utils.hourToNumber(hour);
+    console.log('start',startHour);
 
     for(let hourBlock = startHour; hourBlock < startHour + duration; hourBlock +=0.5){
       
@@ -154,36 +155,27 @@ class Booking{
   markedTable(){
     const thisBooking = this;
 
-    let tableNumber = '';
-
     document.querySelector('.floor-plan').addEventListener('click', function(event){
       
-   
-      tableNumber = event.target.attributes[1];
-     
-      event.path[0].classList.toggle(classNames.booking.marked);
-      thisBooking.remove(tableNumber);
+      if(event.target.classList.contains('table') && !event.target.classList.contains('booked')) {
+        if(!event.target.classList.contains(classNames.booking.marked)){  
+          thisBooking.clearTables();
+          event.target.classList.toggle(classNames.booking.marked);
+          thisBooking.table = event.target.getAttribute('data-table');
+        }else if(event.target.classList.contains(classNames.booking.marked)){
+          thisBooking.clearTables();
+        }
+      } 
     });
-
-      
-  
   }
 
-  remove(tN){
+  clearTables(){
     const thisBooking = this;
   
     
     for(let item of thisBooking.dom.tables){
-      let tableNumber = item.getAttribute('data-table');
-
-      
-      if(tableNumber !== tN.value){
-       
-        item.classList.remove(classNames.booking.marked);
-      }
-      if(item.classList.contains(classNames.booking.tableBooked)){
-        item.classList.remove(classNames.booking.marked);
-      }
+        
+      item.classList.remove(classNames.booking.marked);
     
     }
   
@@ -210,9 +202,9 @@ class Booking{
     thisBooking.dom.inputPhone = thisBooking.dom.wrapper.querySelector('input[name="phone"]');
     thisBooking.dom.inputAdress = thisBooking.dom.wrapper.querySelector('input[name="address"]');
     thisBooking.dom.form = thisBooking.dom.wrapper.querySelector('.booking-form');
-    thisBooking.dom.table = thisBooking.dom.wrapper.querySelector('.marked'); //czemu nie znajduje mi marked gdy w floor-plan znajduje i widac ze jest klasa marked
+
     thisBooking.dom.initStarters = document.querySelectorAll('input[name="starter"]');
-    console.log('thisBooking.dom.table',thisBooking.dom.table);
+    
     
 
   }
@@ -238,8 +230,11 @@ class Booking{
     const url = settings.db.url + '/' + settings.db.booking; 
     console.log(url);
     let reservation = {};
+
+
     
-    reservation.table = thisBooking.dom.table; //powinna byc liczba ; popawic nie działa właściwie (pomysl był taki zeby sciagnac atrybut po klasie .marked)
+
+     //powinna byc liczba ; popawic nie działa właściwie (pomysl był taki zeby sciagnac atrybut po klasie .marked)
     
     reservation.starters =[];
 
@@ -251,19 +246,20 @@ class Booking{
       console.log('starter',starter);
 
     }
+    reservation.table = parseInt(thisBooking.table);
     reservation.date = thisBooking.dom.inputkDate.value;
-    reservation.hour = thisBooking.dom.inputHour.value; 
-    reservation.duration = thisBooking.dom.inputHoursAmount.value; //powinna byc liczba
-    reservation.ppl = thisBooking.dom.inputPeopleAmount.value; //powinna byc liczba
+    reservation.hour = utils.numberToHour(thisBooking.dom.inputHour.value);
+    reservation.duration = parseInt(thisBooking.dom.inputHoursAmount.value); 
+    reservation.ppl = parseInt(thisBooking.dom.inputPeopleAmount.value); 
     reservation.phone = thisBooking.dom.inputPhone.value;
     reservation.address = thisBooking.dom.inputAdress.value ; 
 
     console.log( ' spradznie co pobiera ',reservation.table);
 
-    thisBooking.makeBooked(reservation.date, reservation.hour, reservation.duration, reservation.table); //nie działa
+    thisBooking.makeBooked(reservation.date, reservation.hour, reservation.duration, reservation.table); 
     
 
-    const options ={        //wiem po co niewiem co sie dzieje
+    const options ={        //Czy tutaj musze wiedziec co sie dzieje czy wystarczy zna
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -273,7 +269,6 @@ class Booking{
     fetch(url, options);
 
     console.log(' reservation ',  reservation);
-    console.log('thisBooking.dom.table',thisBooking.dom.table);
     console.log('thisBooking.booked',thisBooking.booked);
   }
 

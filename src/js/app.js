@@ -13,6 +13,7 @@ const app = {
     
     
     let pageMatchingHash = thisApp.pages[0].id;
+    console.log('thisApp.pages[0].id',thisApp.pages[0].id);
     
     for(let page of thisApp.pages){
       
@@ -31,7 +32,7 @@ const app = {
         event.preventDefault();
 
         /*get page id from href atribute */
-        const id = clickedElement.getAttribute('href').replace('#',''); //zrobiłem wczesniej link zamiast clcickedElemet i działało identycznie Czy to robi jakąś różnice ?
+        const id = clickedElement.getAttribute('href').replace('#',''); 
         
         /* run thisApp.activatePage  with that id*/
         thisApp.activatePages(id);
@@ -44,13 +45,9 @@ const app = {
     const thisApp = this;
     /*add class 'active' to matching pages remove from non-matchng*/
     for(let page of thisApp.pages){
-      page.classList.toggle(classNames.pages.active,page.id == pageId);  //spowoduje wykonanie tego samego co jest zakomentowane poniżej
+      page.classList.toggle(classNames.pages.active , page.id == pageId);  
     }
-    //  if(page.id == pageId){
-    //    page.classList.add(classNames.pages.active);
-    //  }else{
-    //    page.classList.remove(classNames.pages.active);
-    //  }
+
     for(let link of thisApp.navLinks){
       link.classList.toggle(
         classNames.nav.active,
