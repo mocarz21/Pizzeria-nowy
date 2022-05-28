@@ -2,6 +2,7 @@ import { settings, select, classNames, templates } from './settings.js';
 import Product from './components/Product.js';
 import Cart from './components/Cart.js';
 import Booking from './components/Booking.js';
+import Home from './components/Home.js';
 const app = {
   initPages: function(){
 
@@ -9,14 +10,16 @@ const app = {
     const idFromHash = window.location.hash.replace('#/','');
     thisApp.pages =document.querySelector(select.containerOf.pages).children;
     thisApp.navLinks =document.querySelectorAll(select.nav.links);
-    
-    
+    thisApp.order = document.querySelector('.left h1');
+    thisApp.bookTable = document.querySelector('.right h1');
+
+    console.log('thisApp.bookTable',thisApp.bookTable);
     
     let pageMatchingHash = thisApp.pages[0].id;
-    console.log('thisApp.pages[0].id',thisApp.pages[0].id);
+    
     
     for(let page of thisApp.pages){
-      
+      console.log('page',page);
       if(page.id == idFromHash){
         
         pageMatchingHash = page.id;
@@ -40,6 +43,19 @@ const app = {
         window.location.hash = '#/' + id;
       });
     }
+    
+    thisApp.order.addEventListener('click', function(){
+      thisApp.activatePages(thisApp.pages[1].id);
+      window.location.hash = '#/' + thisApp.pages[1].id;
+    });
+
+    thisApp.bookTable.addEventListener('click', function(){
+      thisApp.activatePages(thisApp.pages[2].id);
+      window.location.hash = '#/' + thisApp.pages[2].id;
+
+    });
+  
+    
   },
   activatePages: function(pageId){
     const thisApp = this;
@@ -100,6 +116,12 @@ const app = {
     const bookingContainer = document.querySelector(select.containerOf.booking);
     new Booking(bookingContainer);
   },
+  initHome: function(){
+    new Home();
+  },
+
+
+
 
   init: function(){
     const thisApp = this;
@@ -110,8 +132,9 @@ const app = {
     console.log('templates:', templates);
 
     thisApp.initPages();
-    thisApp.initData();                            
+    thisApp.initData();                         
     thisApp.initCart();
+    thisApp.initHome();
     thisApp.initBooking();
   },
   

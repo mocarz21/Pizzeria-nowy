@@ -7,12 +7,14 @@
   <title>Pizzeria</title>
   <link href="https://fonts.googleapis.com/css?family=Lato:400,300i,700%7COswald:300,500,700&amp;subset=latin-ext" rel="stylesheet">
   <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
   <link rel="stylesheet" href="vendor/range-slider.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
   <header class="header">
     <div class="container">
       <div class="header__wrapper">
@@ -24,7 +26,6 @@
             <a href="#home">Home</a>
             <a href="#order">Order</a>
             <a href="#booking">Booking</a>
-            
         </div>
         <div id="cart" class="cart">
           <div class="cart__summary">
@@ -64,7 +65,121 @@
   </header>
   <div id="pages">
     <section id ="home">
-      <div class="home-wrapper container"></div>
+      <div class="home-wrapper container">
+        <div class ="info-wrapper">
+          <div id="order" class ="up left order">
+            <h1>ORDER ONINE</h1>
+          </div>
+          <div class ="up right booking">
+            <h1>BOOK A TABLE </h1>
+          </div>
+        </div>
+        <div class ="down">
+          <h1>OPENING HOURS</h1>
+          <h2>TUE - SUN 12PM - 12AM</h2>
+        </div>
+        <div class="gride-slider-section">
+          <div class="gride-slider-wrap">
+            <div class="gride-slide"> 
+              <div class="gride-slide-inner">
+                <div class="smal-container">
+                  <div class="images">
+                    <img src="images/assets/pizza-3.jpg" alt="1">
+                  </div>
+                  <div class="article">
+                    <h1>Delicius Food</h1>
+                    <p>It is a long established fact that a reader will be distracted by the readable content of a page
+                       when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="gride-slide">
+              <div class="gride-slide-inner">
+                <div class="smal-container">
+                  <div class="images">
+                    <img src="images/assets/pizza-4.jpg" alt="2">
+                  </div>
+                  <div class="article">
+                    <h1>Great Service</h1>
+                    <p>Oba powyższe przykłady mają zbliżone podstawowe ustawienia. 
+                      Efekt końcowy na pierwszy rzut oka jest też identyczny. 
+                      To na jaką metodę się zdecydujemy zależy tylko i wyłącznie od nas.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="gride-slide">
+              <div class="gride-slide-inner">
+                <div class="smal-container">
+                  <div class="images">
+                    <img src="images/assets/pizza-5.jpg" alt="3">
+                  </div>
+                  <div class="article">
+                    <h1>Great Venue</h1>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
+                       dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="gride-slide">
+              <div class="gride-slide-inner">
+                <div class="smal-container">
+                  <div class="images">
+                    <img src="images/assets/pizza-6.jpg" alt="4">
+                  </div>
+                  <div class="article">
+                    <h1>Good Snacks</h1>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+                       text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only 
+                       five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets
+                       containing Lorem Ipsum passages, and more recently</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="galery">
+          <div class="picture">
+            <img src="images/assets/pizza-1.jpg" alt="1">
+            <i class="fa-solid fa-share-nodes"></i>
+          </div>
+          <div class="picture">
+            <img src="images/assets/pizza-2.jpg" alt="2">
+            <i class="fa-solid fa-share-nodes"></i>
+          </div>
+          <div class="picture">
+            <img src="images/assets/pizza-3.jpg" alt="3">
+            <i class="fa-solid fa-share-nodes"></i>
+          </div>
+          <div class="picture">
+            <img src="images/assets/pizza-4.jpg" alt="4">
+            <i class="fa-solid fa-share-nodes"></i>
+          </div>
+          <div class="picture">
+            <img src="images/assets/pizza-5.jpg" alt="5">
+            <i class="fa-solid fa-share-nodes"></i>
+          </div>
+          <div class="picture">
+            <img src="images/assets/pizza-6.jpg" alt="6">
+            <i class="fa-solid fa-share-nodes"></i>
+          </div>
+          <div class="picture">
+            <img src="images/assets/pizza-7.jpg" alt="7">
+            <i class="fa-solid fa-share-nodes"></i>
+          </div>
+          <div class="picture">
+            <img src="images/assets/pizza-8.jpg" alt="8">
+            <i class="fa-solid fa-share-nodes"></i>
+          </div>
+          <div class="picture">
+            <img src="images/assets/pizza-9.jpg" alt="9">
+            <i class="fa-solid fa-share-nodes"></i>
+          </div>
+        </div>     
+      </div>
     </section>
     <section id="order">
       <div id="product-list" class="product-list container"></div>
@@ -247,7 +362,9 @@
     </div>
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
   <script src="vendor/range-slider.min.js"></script>
   <script src="js/app.js" type="module"></script>
 </body>

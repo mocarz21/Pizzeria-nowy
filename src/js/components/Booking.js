@@ -230,12 +230,6 @@ class Booking{
     const url = settings.db.url + '/' + settings.db.booking; 
     console.log(url);
     let reservation = {};
-
-
-    
-
-     //powinna byc liczba ; popawic nie działa właściwie (pomysl był taki zeby sciagnac atrybut po klasie .marked)
-    
     reservation.starters =[];
 
     for( let starter of thisBooking.dom.initStarters){   //?????? nie rozumiem tego zapisu z cart
