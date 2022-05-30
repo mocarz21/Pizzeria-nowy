@@ -1,4 +1,4 @@
-
+/* eslint-disable */
 
 
 class Home{
@@ -9,6 +9,7 @@ class Home{
   }
   Slider(){
     var elem = document.querySelector('.gride-slider-wrap');
+    
     var flkty = new Flickity( elem, {
       // options
       cellAlign: 'left',
