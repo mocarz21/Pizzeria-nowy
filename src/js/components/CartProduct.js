@@ -70,6 +70,8 @@ class CartProduct{
 
     });
 
+    
+
   }
   getData(){
     const thisCartProduct = this;

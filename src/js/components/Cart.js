@@ -69,12 +69,12 @@ class Cart{
     payLoad.totalNumber = thisCart.totalNumber.innerHTML;
     payLoad.deliveryFee = thisCart.deliveryFee.innerHTML;
     for(let prod of thisCart.products){  
-      payLoad.products.push(prod.getData());             // po co jest getData?
+      payLoad.products.push(prod.getData());            
      
 
     }
     
-    
+    console.log('payoad', payLoad);
     const options ={
       method: 'POST',
       headers: {
@@ -84,7 +84,7 @@ class Cart{
     };
     fetch(url, options);
 
-    
+    console.log('payoad-send', payLoad);
 
   }
 

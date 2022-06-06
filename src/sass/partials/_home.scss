@@ -129,7 +129,7 @@
   flex-direction: row;
 
   .picture{
-
+    position: relative;
     width: 32.5%;
     height: 145px;
     overflow: hidden;
@@ -150,12 +150,15 @@
     }
 
     i{
-        
+      position: absolute;  
       text-align: center;
       width: 100%;
       margin-top: 70px;
       color: $color-danger;
       z-index: 2;
+      top: 0;
+      right: 0;
+
            
     }
   }

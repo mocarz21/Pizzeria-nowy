@@ -98,7 +98,7 @@ class Booking{
     }
 
     const startHour = utils.hourToNumber(hour);
-    console.log('start',startHour);
+   
 
     for(let hourBlock = startHour; hourBlock < startHour + duration; hourBlock +=0.5){
       
@@ -228,7 +228,7 @@ class Booking{
   sendOrder(){
     const thisBooking = this;
     const url = settings.db.url + '/' + settings.db.booking; 
-    console.log(url);
+    
     let reservation = {};
     reservation.starters =[];
 
@@ -237,7 +237,7 @@ class Booking{
       if(starter.checked ==true){
         reservation.starters.push(starter.value);
       }
-      console.log('starter',starter);
+     
 
     }
     reservation.table = parseInt(thisBooking.table);
@@ -248,7 +248,7 @@ class Booking{
     reservation.phone = thisBooking.dom.inputPhone.value;
     reservation.address = thisBooking.dom.inputAdress.value ; 
 
-    console.log( ' spradznie co pobiera ',reservation.table);
+   
 
     thisBooking.makeBooked(reservation.date, reservation.hour, reservation.duration, reservation.table); 
     
@@ -262,8 +262,7 @@ class Booking{
     };
     fetch(url, options);
 
-    console.log(' reservation ',  reservation);
-    console.log('thisBooking.booked',thisBooking.booked);
+  
   }
 
   initAction(){
